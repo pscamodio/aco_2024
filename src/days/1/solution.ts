@@ -1,9 +1,30 @@
 import { SolutionFunction } from "../../day_solution.ts";
 
-export const part1 : SolutionFunction = (input) => {
-    return Promise.resolve(`Part 1: ${input}`);
-}
+export const part1: SolutionFunction = (input) => {
+  const [list1, list2] = parseInput(input).map((l) => l.toSorted());
+  const distance = list1.reduce((prev, current, index) => {
+    return prev + Math.abs(current - list2[index]);
+  }, 0);
 
-export const part2 : SolutionFunction = (input) => {
-    return Promise.resolve(`Part 2: ${input}`);
+  return Promise.resolve(distance.toString());
+};
+
+export const part2: SolutionFunction = (input) => {
+  const [list1, list2] = parseInput(input).map((l) => l.toSorted());
+
+  const similarity = list1.reduce((prev, current) => {
+    return prev + current * list2.filter((val) => val === current).length;
+  }, 0);
+
+  return Promise.resolve(`Part 2: ${similarity}`);
+};
+
+function parseInput(input: string): [number[], number[]] {
+  const ret: [number[], number[]] = [[], []];
+  input.split("\n").forEach((value) => {
+    const [num1, num2] = value.split("   ");
+    ret[0].push(parseInt(num1));
+    ret[1].push(parseInt(num2));
+  });
+  return ret;
 }
