@@ -3,30 +3,24 @@ import { SolutionFunction } from "../../day_solution.ts";
 export const part1: SolutionFunction = (input) => {
   const levels = parseInput(input);
 
-  let safeLevels = 0;
-  for (const level of levels) {
-    if (checkIsSafe(level)) safeLevels += 1;
-  }
-  return Promise.resolve(safeLevels);
+  return levels.filter(checkIsSafe).length;
 };
 
 export const part2: SolutionFunction = (input) => {
   const levels = parseInput(input);
 
-  let safeLevels = 0;
-  for (const level of levels) {
+  return levels.filter((level) => {
     if (checkIsSafe(level)) {
-      safeLevels += 1;
+      return true;
     } else {
       for (const dampened of getDampenedLevels(level)) {
         if (checkIsSafe(dampened)) {
-          safeLevels += 1;
-          break;
+          return true;
         }
       }
     }
-  }
-  return Promise.resolve(safeLevels);
+    return false;
+  }).length;
 };
 
 type Level = number[];

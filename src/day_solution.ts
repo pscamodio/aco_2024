@@ -1,6 +1,8 @@
 import { assert } from "./assert.ts";
 
-export type SolutionFunction = (input: string) => Promise<string | number>;
+export type SolutionFunction = (
+  input: string
+) => Promise<string | number> | string | number;
 
 type DaySolution = {
   part1: SolutionFunction;
