@@ -11,9 +11,9 @@
             "program": "${workspaceFolder}/src/main.ts",
             "args": [
                 "--day",
-                "3",
+                "4",
                 "--part",
-                "2",
+                "1",
                 "--demo"
             ],
             "cwd": "${workspaceFolder}",
