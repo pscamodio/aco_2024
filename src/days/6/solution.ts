@@ -1,4 +1,5 @@
 import { SolutionFunction } from "../../day_solution.ts";
+import { assert } from "../../utils/assert.ts";
 
 type Coord = {
   x: number;
@@ -128,19 +129,22 @@ function checkLoop(map: Map, obstacle: Coord): boolean {
     y: -1,
   };
   const queue = new CoordDirectionSet();
-  while (!isOutOfBound(newMap, guardPos)) {
-    if (queue.visit(guardPos, direction)) {
-      return true;
-    }
+  while (true) {
     let next = add(guardPos, direction);
+    while (!isOutOfBound(newMap, next) && !isObstruction(newMap, next)) {
+      guardPos = next;
+      next = add(guardPos, direction);
+    }
     if (isOutOfBound(newMap, next)) {
-      break;
+      return false;
+    }
+    assert(isObstruction(newMap, next), "Need to be obstruction");
+    if (queue.visit(next, direction)) {
+      return true;
     }
     while (isObstruction(newMap, next)) {
       direction = rotateLeft(direction);
       next = add(guardPos, direction);
     }
-    guardPos = next;
   }
-  return false;
 }
