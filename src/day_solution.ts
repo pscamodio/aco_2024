@@ -1,4 +1,4 @@
-import { assert } from "./assert.ts";
+import { assert } from "./utils/assert.ts";
 
 export type SolutionFunction = (
   input: string

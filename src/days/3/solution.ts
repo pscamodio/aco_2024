@@ -1,4 +1,4 @@
-import { assert } from "../../assert.ts";
+import { assert } from "../../utils/assert.ts";
 import { SolutionFunction } from "../../day_solution.ts";
 
 export const part1: SolutionFunction = (input) => {
