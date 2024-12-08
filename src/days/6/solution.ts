@@ -16,7 +16,7 @@ export const part1: SolutionFunction = (input) => {
 export const part2: SolutionFunction = (input) => {
   const map = input.split("\n").map((s) => s.split(""));
   const visited = findVisited(map);
-  const loopObstacles = visited.data.filter((pos, index) => {
+  const loopObstacles = visited.data.filter((pos) => {
     return checkLoop(map, pos);
   });
   return loopObstacles.length;
