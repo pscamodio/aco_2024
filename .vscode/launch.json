@@ -13,8 +13,7 @@
                 "--day",
                 "6",
                 "--part",
-                "2",
-                "--demo"
+                "2"
             ],
             "cwd": "${workspaceFolder}",
             "env": {},
