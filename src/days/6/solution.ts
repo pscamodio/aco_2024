@@ -1,4 +1,5 @@
 import { SolutionFunction } from "../../day_solution.ts";
+import { assert } from "../../utils/assert.ts";
 
 type Coord = {
   x: number;
@@ -15,9 +16,7 @@ export const part1: SolutionFunction = (input) => {
 export const part2: SolutionFunction = (input) => {
   const map = input.split("\n").map((s) => s.split(""));
   const visited = findVisited(map);
-  const loopObstacles = visited.data.filter((pos, index) => {
-    console.log("Checking possible position", pos, index);
-
+  const loopObstacles = visited.data.filter((pos) => {
     return checkLoop(map, pos);
   });
   return loopObstacles.length;
@@ -100,14 +99,13 @@ function findVisited(map: Map): CoordSet {
 }
 
 class CoordDirectionSet {
-  data: Array<[Coord, Coord]> = [];
+  data = new Set<string>();
 
   visit(coord: Coord, direction: Coord): boolean {
-    const isLoop = this.data.find(
-      (value) => isSame(value[0], coord) && isSame(value[1], direction)
-    );
+    const key = JSON.stringify({ coord, direction });
+    const isLoop = this.data.has(key);
     if (isLoop) return true;
-    this.data.push([coord, direction]);
+    this.data.add(key);
     return false;
   }
 }
@@ -120,27 +118,32 @@ function checkLoop(map: Map, obstacle: Coord): boolean {
   };
   if (isSame(guardPos, obstacle)) return false;
 
-  const newMap = structuredClone(map);
-  newMap[obstacle.y][obstacle.x] = "#";
+  const oldValue = map[obstacle.y][obstacle.x];
+  map[obstacle.y][obstacle.x] = "#";
 
   let direction = {
     x: 0,
     y: -1,
   };
   const queue = new CoordDirectionSet();
-  while (!isOutOfBound(newMap, guardPos)) {
-    if (queue.visit(guardPos, direction)) {
+  while (true) {
+    let next = add(guardPos, direction);
+    while (!isOutOfBound(map, next) && !isObstruction(map, next)) {
+      guardPos = next;
+      next = add(guardPos, direction);
+    }
+    if (isOutOfBound(map, next)) {
+      map[obstacle.y][obstacle.x] = oldValue;
+      return false;
+    }
+    assert(isObstruction(map, next), "Need to be obstruction");
+    if (queue.visit(next, direction)) {
+      map[obstacle.y][obstacle.x] = oldValue;
       return true;
     }
-    let next = add(guardPos, direction);
-    if (isOutOfBound(newMap, next)) {
-      break;
-    }
-    while (isObstruction(newMap, next)) {
+    while (isObstruction(map, next)) {
       direction = rotateLeft(direction);
       next = add(guardPos, direction);
     }
-    guardPos = next;
   }
-  return false;
 }

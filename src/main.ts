@@ -1,5 +1,5 @@
 import { parseArgs } from "jsr:@std/cli/parse-args";
-import { assert } from "./assert.ts";
+import { assert } from "./utils/assert.ts";
 import { run } from "./day_solution.ts";
 import { isNumber } from "https://deno.land/x/is_number/mod.ts";
 
