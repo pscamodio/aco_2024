@@ -16,7 +16,10 @@ export function parseGrid<T extends GridValues>(
   input: string,
   valueParser?: ValueParser<T>
 ): Grid<T> {
-  const grid = input.split("\n").map((line) => line.split(""));
+  const grid = input
+    .split("\n")
+    .filter((line) => line.length > 0)
+    .map((line) => line.split(""));
   assert(
     grid.every((row) => row.length === grid[0].length),
     "input is not an uniform grid"
@@ -89,8 +92,10 @@ export function isInside(grid: Grid, coord: Vec2) {
 export function getCell<T extends GridValues>(grid: Grid<T>, coord: Vec2): T {
   const value = grid.at(coord.y)?.at(coord.x);
   assert(
-    value,
-    `Grid access out of bound. Grid width ${grid[0].length}, Grid height ${grid.length}, coord ${coord}`
+    value !== undefined,
+    `Grid access out of bound. Grid width ${grid[0].length}, Grid height ${
+      grid.length
+    }, coord ${JSON.stringify(coord)}`
   );
   return value;
 }

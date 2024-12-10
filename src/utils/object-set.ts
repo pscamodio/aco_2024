@@ -1,7 +1,14 @@
 export class ObjectSet<T extends Record<string, unknown>> {
   data = new Map<string, T>();
 
-  constructor(public computeKey: (value: T) => string = JSON.stringify) {}
+  constructor(
+    initialData: Array<T> = [],
+    public computeKey: (value: T) => string = JSON.stringify
+  ) {
+    for (const value of initialData) {
+      this.add(value);
+    }
+  }
 
   add(value: T): void {
     if (this.has(value)) return;
