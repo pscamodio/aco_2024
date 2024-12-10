@@ -1,30 +1,24 @@
 import { SolutionFunction } from "../../day_solution.ts";
 import { memoize } from "../../utils/memoize.ts";
-import {
-  findAll,
-  getCell,
-  Grid,
-  isInside,
-  parseGrid,
-} from "../../utils/grid.ts";
+import { Grid, parseGrid } from "../../utils/grid.ts";
 import { ObjectSet } from "../../utils/object-set.ts";
 import { add, Vec2 } from "../../utils/vec2.ts";
 
 export const part1: SolutionFunction = (input) => {
   const grid = parseGrid(input, parseFloat);
-  const trailHeads = findAll(grid, 0);
+  const trailHeads = grid.findAll(0);
   return trailHeads.reduce(
     (val, head) => val + computeTrailScore(grid, head),
-    0
+    0,
   );
 };
 
 export const part2: SolutionFunction = (input) => {
   const grid = parseGrid(input, parseFloat);
-  const trailHeads = findAll(grid, 0);
+  const trailHeads = grid.findAll(0);
   return trailHeads.reduce(
     (val, head) => val + computeTrailRating(grid, head),
-    0
+    0,
   );
 };
 
@@ -43,7 +37,7 @@ function computeTrailRating(grid: Grid<number>, trailHead: Vec2): number {
 }
 
 function findPeaks(grid: Grid<number>, pos: Vec2, peaks: Vec2[]) {
-  if (getCell(grid, pos) === 9) {
+  if (grid.getCell(pos) === 9) {
     peaks.push(pos);
     return;
   }
@@ -60,8 +54,8 @@ function findPaths(grid: Grid<number>, pos: Vec2): Vec2[] {
     { x: 0, y: -1 },
     { x: 0, y: 1 },
   ].map((dir) => add(pos, dir));
-  const posHeight = getCell(grid, pos);
+  const posHeight = grid.getCell(pos);
   return possiblePaths.filter(
-    (path) => isInside(grid, path) && getCell(grid, path) === posHeight + 1
+    (path) => grid.isInside(path) && grid.getCell(path) === posHeight + 1,
   );
 }

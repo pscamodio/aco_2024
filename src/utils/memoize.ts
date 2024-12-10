@@ -8,7 +8,7 @@
  */
 export function memoize<Args extends unknown[], Ret extends unknown>(
   f: (...args: Args) => Ret,
-  computeKey: (...args: Args) => string = (...args) => JSON.stringify(args)
+  computeKey: (...args: Args) => string = (...args) => JSON.stringify(args),
 ): (...args: Args) => Ret {
   const cache_map = new Map<string, Ret>();
   return (...args: Args): Ret => {

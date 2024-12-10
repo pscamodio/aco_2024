@@ -13,24 +13,24 @@ export const part2: SolutionFunction = (input) => {
   // prettier-ignore
   const MASKS = [
     [
-        "M.S", 
-        ".A.", 
-        "M.S"
+      "M.S",
+      ".A.",
+      "M.S",
     ],
     [
-        "M.M", 
-        ".A.", 
-        "S.S"
+      "M.M",
+      ".A.",
+      "S.S",
     ],
     [
-        "S.M", 
-        ".A.", 
-        "S.M"
+      "S.M",
+      ".A.",
+      "S.M",
     ],
     [
-        "S.S", 
-        ".A.", 
-        "M.M"
+      "S.S",
+      ".A.",
+      "M.M",
     ],
   ];
 
@@ -115,7 +115,7 @@ function checkMask(
   input: string[],
   mask: string[],
   startRow: number,
-  startCol: number
+  startCol: number,
 ): boolean {
   const sz = mask.length;
   for (let row = 0; row < sz; row++) {

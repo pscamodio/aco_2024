@@ -1,7 +1,7 @@
 import { assert } from "./utils/assert.ts";
 
 export type SolutionFunction = (
-  input: string
+  input: string,
 ) => Promise<string | number> | string | number;
 
 type DaySolution = {
@@ -12,7 +12,7 @@ type DaySolution = {
 export async function run(
   day: number,
   part: 1 | 2,
-  demo = false
+  demo = false,
 ): Promise<string | number> {
   const solutionUrl = `./days/${day}/solution.ts`;
   const solution = await import(solutionUrl);

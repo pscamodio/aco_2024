@@ -45,14 +45,14 @@ type PossibleOperations =
  */
 function computeCalibrationResult(
   input: string,
-  allowedOperations: Array<PossibleOperations>
+  allowedOperations: Array<PossibleOperations>,
 ): number {
   const equations = parseInput(input);
   let totalCalibrationValue = 0;
   for (const eq of equations) {
     const combinations = generateOpCombinations(
       eq.values.length - 1,
-      allowedOperations
+      allowedOperations,
     );
     for (const operations of combinations) {
       const eqResult = evaluateEquations(eq.values, operations);
@@ -71,10 +71,10 @@ function computeCalibrationResult(
  * @returns all the possible combinations of the operations
  */
 const generateOpCombinations = memoize(function generateOpCombinations<
-  const Operations extends PossibleOperations[] = PossibleOperations[]
+  const Operations extends PossibleOperations[] = PossibleOperations[],
 >(
   length: number,
-  allowedOperations: Operations
+  allowedOperations: Operations,
 ): Array<Array<Operations[number]>> {
   const combinations: Array<Array<Operations[number]>> = [];
   for (let i = 0; i < Math.pow(allowedOperations.length, length); i++) {
@@ -83,7 +83,7 @@ const generateOpCombinations = memoize(function generateOpCombinations<
         .toString(allowedOperations.length)
         .padStart(length, "0")
         .split("")
-        .map((x) => allowedOperations[+x])
+        .map((x) => allowedOperations[+x]),
     );
   }
   return combinations;
@@ -96,7 +96,7 @@ const generateOpCombinations = memoize(function generateOpCombinations<
  */
 function evaluateEquations(
   values: number[],
-  operations: PossibleOperations[]
+  operations: PossibleOperations[],
 ): number {
   let res = values[0];
   for (const [index, op] of operations.entries()) {

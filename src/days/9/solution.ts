@@ -60,7 +60,7 @@ export const part2: SolutionFunction = (input) => {
     if (toMoveIndex === -1) break;
     const toMoveBlock = disk[toMoveIndex];
     const targetIndex = disk.findIndex(
-      (block) => block.size >= toMoveBlock.size && block.id === undefined
+      (block) => block.size >= toMoveBlock.size && block.id === undefined,
     );
     if (targetIndex === -1 || targetIndex > toMoveIndex) continue;
 

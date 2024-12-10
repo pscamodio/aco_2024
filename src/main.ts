@@ -14,7 +14,7 @@ try {
   assert(isNumber(part), "part is missing");
 
   console.log(
-    `Running day ${day} part ${part} ${demo ? "with demo input" : ""}`
+    `Running day ${day} part ${part} ${demo ? "with demo input" : ""}`,
   );
   const result = await run(day, part, demo);
   console.log(`Day ${day} part ${part} solution:\n${result}`);

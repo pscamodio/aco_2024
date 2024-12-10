@@ -33,7 +33,7 @@ function parseInput(input: string): Level[] {
 
 function checkChange(
   first: number,
-  second: number
+  second: number,
 ): { direction: Direction; change: number } {
   const diff = second - first;
   const change = Math.abs(diff);

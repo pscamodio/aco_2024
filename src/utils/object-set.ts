@@ -3,7 +3,7 @@ export class ObjectSet<T extends Record<string, unknown>> {
 
   constructor(
     initialData: Array<T> = [],
-    public computeKey: (value: T) => string = JSON.stringify
+    public computeKey: (value: T) => string = JSON.stringify,
   ) {
     for (const value of initialData) {
       this.add(value);
