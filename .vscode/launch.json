@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/src/main.ts",
       "args": [
         "--day",
-        "6",
+        "11",
         "--part",
         "2"
       ],
